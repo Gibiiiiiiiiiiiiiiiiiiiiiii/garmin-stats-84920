@@ -47,6 +47,9 @@ td{padding:7px 8px;border-bottom:1px solid #e3e3e3}
 .rem{margin:10px 0 0;padding-left:20px;font-size:14px}.rem li{margin:5px 0}
 .hint{font-size:12px;color:#555;margin:0 0 8px}
 tr.now td{background:#fff3b0}
+.btn{font:inherit;font-weight:800;text-transform:uppercase;border:3px solid var(--ink);background:var(--yellow);padding:9px 18px;cursor:pointer;margin-top:12px;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+a{color:inherit}
 .ok{color:#0a7a2f;font-weight:700}.no{color:#b00020;font-weight:700}.todo{color:#666}
 td small{color:#555}
 footer{text-align:center;font-size:12px;color:#666;padding:26px 0 40px}
@@ -69,15 +72,17 @@ footer{text-align:center;font-size:12px;color:#666;padding:26px 0 40px}
     <div class="card"><h2>Passo medio (min/km)</h2><div class="leg" id="l4"></div><div id="c4"></div></div>
     <div class="card" id="k5"><h2>HRV</h2><div class="leg" id="l5"></div><div id="c5"></div></div>
     <div class="card" id="k6"><h2>Sonno (ore)</h2><div class="leg" id="l6"></div><div id="c6"></div></div>
+    <div class="card" id="k8"><h2>VO2 max</h2><div class="leg" id="l8"></div><div id="c8"></div></div>
     <div class="card" id="k7"><h2>Peso (kg)</h2><div class="leg" id="l7"></div><div id="c7"></div></div>
     <div class="card main" id="kplan"></div>
+    <div class="card main" id="kpaces"></div>
     <div class="card main"><h2>Ultime corse</h2><div class="tw" id="tbl"></div></div>
   </div>
   <footer>Dati Garmin Personal API &middot; solo lettura</footer>
 </div>
 <div id="tip"></div>
 <script>
-const D={"runs": [{"d": "2026-09-30", "name": "Castagnole delle Lanze Corsa", "km": 5.05, "min": 29.3, "pace": 5.806, "hr": 134.0, "max": 175.0}, {"d": "2026-10-03", "name": "Castagnole delle Lanze Corsa", "km": 5.01, "min": 31.9, "pace": 6.357, "hr": 122.0, "max": 148.0}, {"d": "2026-10-08", "name": "Castagnole delle Lanze Corsa", "km": 6.0, "min": 40.7, "pace": 6.786, "hr": 153.0, "max": 195.0}, {"d": "2026-10-10", "name": "Castagnole delle Lanze - Allenamento week 1", "km": 6.77, "min": 45.3, "pace": 6.694, "hr": 164.0, "max": 195.0}, {"d": "2026-10-14", "name": "Corsa su tapis roulant", "km": 7.1, "min": 44.6, "pace": 6.279, "hr": 112.0, "max": 130.0}, {"d": "2026-10-17", "name": "Castagnole delle Lanze - Allenamento week 2", "km": 7.35, "min": 46.5, "pace": 6.322, "hr": 136.0, "max": 184.0}, {"d": "2026-10-21", "name": "Castagnole delle Lanze Corsa", "km": 5.02, "min": 33.6, "pace": 6.689, "hr": 155.0, "max": 189.0}, {"d": "2026-10-24", "name": "Castagnole delle Lanze Corsa", "km": 7.01, "min": 43.7, "pace": 6.234, "hr": 137.0, "max": 162.0}, {"d": "2026-10-26", "name": "Castagnole delle Lanze - Allenamento_1", "km": 6.13, "min": 37.0, "pace": 6.031, "hr": 130.0, "max": 155.0}, {"d": "2026-10-31", "name": "Castagnole delle Lanze Corsa", "km": 10.03, "min": 60.7, "pace": 6.057, "hr": 142.0, "max": 191.0}, {"d": "2026-11-02", "name": "Torino Corsa", "km": 6.03, "min": 35.1, "pace": 5.826, "hr": 141.0, "max": 165.0}, {"d": "2026-11-08", "name": "Corsa su tapis roulant", "km": 6.7, "min": 40.2, "pace": 5.998, "hr": 140.0, "max": 188.0}, {"d": "2026-11-11", "name": "Castagnole delle Lanze - Allenamento di corsa", "km": 8.21, "min": 50.1, "pace": 6.102, "hr": 168.0, "max": 191.0}, {"d": "2026-11-14", "name": "Santo Stefano Belbo Corsa", "km": 5.41, "min": 34.2, "pace": 6.328, "hr": 137.0, "max": 182.0}], "rest": [{"d": "2026-09-29", "v": 59.0}, {"d": "2026-09-30", "v": 48.0}, {"d": "2026-10-01", "v": 48.0}, {"d": "2026-10-02", "v": 46.0}, {"d": "2026-10-03", "v": 47.0}, {"d": "2026-10-04", "v": 48.0}, {"d": "2026-10-05", "v": 53.0}, {"d": "2026-10-06", "v": 48.0}, {"d": "2026-10-07", "v": 46.0}, {"d": "2026-10-08", "v": 46.0}, {"d": "2026-10-09", "v": 50.0}, {"d": "2026-10-10", "v": 51.0}, {"d": "2026-10-11", "v": 53.0}, {"d": "2026-10-12", "v": 48.0}, {"d": "2026-10-13", "v": 46.0}, {"d": "2026-10-14", "v": 48.0}, {"d": "2026-10-15", "v": 50.0}, {"d": "2026-10-16", "v": 51.0}, {"d": "2026-10-17", "v": 53.0}, {"d": "2026-10-18", "v": 55.0}, {"d": "2026-10-19", "v": 52.0}, {"d": "2026-10-20", "v": 52.0}, {"d": "2026-10-21", "v": 51.0}, {"d": "2026-10-22", "v": 53.0}, {"d": "2026-10-23", "v": 50.0}, {"d": "2026-10-24", "v": 53.0}, {"d": "2026-10-25", "v": 48.0}, {"d": "2026-10-26", "v": 51.0}, {"d": "2026-10-27", "v": 49.0}, {"d": "2026-10-28", "v": 50.0}, {"d": "2026-10-29", "v": 51.0}, {"d": "2026-10-30", "v": 51.0}, {"d": "2026-10-31", "v": 48.0}, {"d": "2026-11-01", "v": 54.0}, {"d": "2026-11-02", "v": 46.0}, {"d": "2026-11-03", "v": 51.0}, {"d": "2026-11-04", "v": 52.0}, {"d": "2026-11-05", "v": 52.0}, {"d": "2026-11-06", "v": 51.0}, {"d": "2026-11-07", "v": 51.0}, {"d": "2026-11-08", "v": 53.0}, {"d": "2026-11-09", "v": 52.0}, {"d": "2026-11-10", "v": 50.0}, {"d": "2026-11-11", "v": 49.0}, {"d": "2026-11-12", "v": 55.0}, {"d": "2026-11-13", "v": 51.0}, {"d": "2026-11-14", "v": 56.0}, {"d": "2026-11-15", "v": 56.0}], "hrv": [{"d": "2026-09-30", "night": 49.0, "week": null}, {"d": "2026-10-01", "night": 44.0, "week": null}, {"d": "2026-10-02", "night": 53.0, "week": null}, {"d": "2026-10-03", "night": 51.0, "week": 49.0}, {"d": "2026-10-04", "night": 45.0, "week": 48.0}, {"d": "2026-10-05", "night": 38.0, "week": 46.0}, {"d": "2026-10-06", "night": 48.0, "week": 47.0}, {"d": "2026-10-07", "night": 50.0, "week": 47.0}, {"d": "2026-10-08", "night": 48.0, "week": 47.0}, {"d": "2026-10-09", "night": 40.0, "week": 46.0}, {"d": "2026-10-10", "night": 43.0, "week": 45.0}, {"d": "2026-10-11", "night": 45.0, "week": 45.0}, {"d": "2026-10-12", "night": 45.0, "week": 46.0}, {"d": "2026-10-13", "night": 49.0, "week": 46.0}, {"d": "2026-10-14", "night": 47.0, "week": 46.0}, {"d": "2026-10-15", "night": 40.0, "week": 44.0}, {"d": "2026-10-16", "night": 42.0, "week": 45.0}, {"d": "2026-10-17", "night": 55.0, "week": 46.0}, {"d": "2026-10-18", "night": 40.0, "week": 45.0}, {"d": "2026-10-19", "night": 42.0, "week": 45.0}, {"d": "2026-10-20", "night": 43.0, "week": 44.0}, {"d": "2026-10-21", "night": 43.0, "week": 43.0}, {"d": "2026-10-22", "night": 37.0, "week": 43.0}, {"d": "2026-10-23", "night": 46.0, "week": 43.0}, {"d": "2026-10-24", "night": 46.0, "week": 42.0}, {"d": "2026-10-25", "night": 45.0, "week": 43.0}, {"d": "2026-10-26", "night": 50.0, "week": 44.0}, {"d": "2026-10-27", "night": 50.0, "week": 45.0}, {"d": "2026-10-28", "night": 45.0, "week": 45.0}, {"d": "2026-10-29", "night": 41.0, "week": 46.0}, {"d": "2026-10-30", "night": 50.0, "week": 47.0}, {"d": "2026-10-31", "night": 48.0, "week": 47.0}, {"d": "2026-11-01", "night": null, "week": 47.0}, {"d": "2026-11-02", "night": 52.0, "week": 47.0}, {"d": "2026-11-03", "night": 45.0, "week": 47.0}, {"d": "2026-11-04", "night": 49.0, "week": 47.0}, {"d": "2026-11-05", "night": 44.0, "week": 48.0}, {"d": "2026-11-06", "night": 41.0, "week": 46.0}, {"d": "2026-11-07", "night": 40.0, "week": 45.0}, {"d": "2026-11-08", "night": 45.0, "week": 45.0}, {"d": "2026-11-09", "night": 38.0, "week": 43.0}, {"d": "2026-11-10", "night": 49.0, "week": 44.0}, {"d": "2026-11-11", "night": 44.0, "week": 43.0}, {"d": "2026-11-12", "night": 37.0, "week": 42.0}, {"d": "2026-11-13", "night": 43.0, "week": 42.0}, {"d": "2026-11-14", "night": 33.0, "week": 41.0}, {"d": "2026-11-15", "night": 33.0, "week": 39.0}], "sleep": [{"d": "2026-09-30", "h": 6.0}, {"d": "2026-10-01", "h": 6.98}, {"d": "2026-10-02", "h": 7.62}, {"d": "2026-10-03", "h": 7.23}, {"d": "2026-10-04", "h": 6.75}, {"d": "2026-10-05", "h": 6.81}, {"d": "2026-10-06", "h": 9.06}, {"d": "2026-10-07", "h": 7.71}, {"d": "2026-10-08", "h": 7.28}, {"d": "2026-10-09", "h": 8.1}, {"d": "2026-10-10", "h": 7.46}, {"d": "2026-10-11", "h": 5.45}, {"d": "2026-10-12", "h": 7.98}, {"d": "2026-10-13", "h": 8.68}, {"d": "2026-10-14", "h": 8.37}, {"d": "2026-10-15", "h": 6.93}, {"d": "2026-10-16", "h": 8.3}, {"d": "2026-10-17", "h": 7.25}, {"d": "2026-10-18", "h": 6.93}, {"d": "2026-10-19", "h": 6.8}, {"d": "2026-10-20", "h": 8.77}, {"d": "2026-10-21", "h": 8.32}, {"d": "2026-10-22", "h": 9.08}, {"d": "2026-10-23", "h": 8.58}, {"d": "2026-10-24", "h": 6.65}, {"d": "2026-10-25", "h": 7.28}, {"d": "2026-10-26", "h": 6.58}, {"d": "2026-10-27", "h": 8.38}, {"d": "2026-10-28", "h": 6.98}, {"d": "2026-10-29", "h": 8.53}, {"d": "2026-10-30", "h": 7.2}, {"d": "2026-10-31", "h": 8.1}, {"d": "2026-11-02", "h": 9.57}, {"d": "2026-11-03", "h": 7.98}, {"d": "2026-11-04", "h": 6.8}, {"d": "2026-11-05", "h": 7.68}, {"d": "2026-11-06", "h": 7.6}, {"d": "2026-11-07", "h": 7.43}, {"d": "2026-11-08", "h": 6.58}, {"d": "2026-11-09", "h": 8.65}, {"d": "2026-11-10", "h": 7.83}, {"d": "2026-11-11", "h": 7.87}, {"d": "2026-11-12", "h": 7.5}, {"d": "2026-11-13", "h": 8.9}, {"d": "2026-11-14", "h": 5.55}, {"d": "2026-11-15", "h": 7.38}], "weight": [{"d": "2026-09-29", "kg": 74.0}, {"d": "2026-10-31", "kg": 76.0}], "today": "2026-11-16", "pulled": "2026-11-16 00:01", "race": {"name": "Mezza maratona", "date": "2027-01-30"}, "goal": 110, "plan": [{"w": 1, "phase": "Costruzione", "a": "10 x 2' forte / 2' lento", "akm": 9.77, "akind": "fartlek", "blo": 12, "bhi": 12}, {"w": 2, "phase": "Costruzione", "a": "6 x 3' forte / 2' lento", "akm": 8.24, "akind": "fartlek", "blo": 12, "bhi": 12}, {"w": 3, "phase": "Costruzione", "a": "5 x 1.000 m Z4 / 3' recupero", "akm": 10.1, "akind": "z4", "blo": 15, "bhi": 15}, {"w": 4, "phase": "Sviluppo", "a": "8 x 400 m Z4 / 2' recupero", "akm": 8.58, "akind": "z4", "blo": 12, "bhi": 12}, {"w": 5, "phase": "Sviluppo", "a": "6 x 1.000 m Z4 / 2'30'' recupero", "akm": 11.17, "akind": "z4", "blo": 10, "bhi": 10}, {"w": 6, "phase": "Sviluppo", "a": "5 x 4' forte / 2' lento", "akm": 8.34, "akind": "fartlek", "blo": 15, "bhi": 15}, {"w": 7, "phase": "Specifica", "a": "4 x 1.200 m Z4 / 3' recupero", "akm": 9.47, "akind": "z4", "blo": 12, "bhi": 12}, {"w": 8, "phase": "Specifica", "a": "3 x 2.000 m Z3-Z4 / 3' recupero", "akm": 10.24, "akind": "z3z4", "blo": 17, "bhi": 18}, {"w": 9, "phase": "Scarico", "a": "4 x 800 m Z4 / 2'30'' recupero", "akm": 7.66, "akind": "z4", "blo": 13, "bhi": 13}, {"w": 10, "phase": "Gara", "a": "25' facili + 4 allunghi da 20''", "akm": 4.0, "akind": "attivazione", "blo": 21.1, "bhi": 21.1}]};
+const D={"runs": [{"d": "2026-09-30", "name": "Castagnole delle Lanze Corsa", "km": 5.05, "min": 29.3, "pace": 5.806, "hr": 134.0, "max": 175.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-03", "name": "Castagnole delle Lanze Corsa", "km": 5.01, "min": 31.9, "pace": 6.357, "hr": 122.0, "max": 148.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-08", "name": "Castagnole delle Lanze Corsa", "km": 6.0, "min": 40.7, "pace": 6.786, "hr": 153.0, "max": 195.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-10", "name": "Castagnole delle Lanze - Allenamento week 1", "km": 6.77, "min": 45.3, "pace": 6.694, "hr": 164.0, "max": 195.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-14", "name": "Corsa su tapis roulant", "km": 7.1, "min": 44.6, "pace": 6.279, "hr": 112.0, "max": 130.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-17", "name": "Castagnole delle Lanze - Allenamento week 2", "km": 7.35, "min": 46.5, "pace": 6.322, "hr": 136.0, "max": 184.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-21", "name": "Castagnole delle Lanze Corsa", "km": 5.02, "min": 33.6, "pace": 6.689, "hr": 155.0, "max": 189.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-24", "name": "Castagnole delle Lanze Corsa", "km": 7.01, "min": 43.7, "pace": 6.234, "hr": 137.0, "max": 162.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-26", "name": "Castagnole delle Lanze - Allenamento_1", "km": 6.13, "min": 37.0, "pace": 6.031, "hr": 130.0, "max": 155.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-10-31", "name": "Castagnole delle Lanze Corsa", "km": 10.03, "min": 60.7, "pace": 6.057, "hr": 142.0, "max": 191.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-11-02", "name": "Torino Corsa", "km": 6.03, "min": 35.1, "pace": 5.826, "hr": 141.0, "max": 165.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-11-08", "name": "Corsa su tapis roulant", "km": 6.7, "min": 40.2, "pace": 5.998, "hr": 140.0, "max": 188.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-11-11", "name": "Castagnole delle Lanze - Allenamento di corsa", "km": 8.21, "min": 50.1, "pace": 6.102, "hr": 168.0, "max": 191.0, "temp": null, "wx": "", "twatch": null}, {"d": "2026-11-14", "name": "Santo Stefano Belbo Corsa", "km": 5.41, "min": 34.2, "pace": 6.328, "hr": 137.0, "max": 182.0, "temp": null, "wx": "", "twatch": null}], "rest": [{"d": "2026-09-29", "v": 59.0}, {"d": "2026-09-30", "v": 48.0}, {"d": "2026-10-01", "v": 48.0}, {"d": "2026-10-02", "v": 46.0}, {"d": "2026-10-03", "v": 47.0}, {"d": "2026-10-04", "v": 48.0}, {"d": "2026-10-05", "v": 53.0}, {"d": "2026-10-06", "v": 48.0}, {"d": "2026-10-07", "v": 46.0}, {"d": "2026-10-08", "v": 46.0}, {"d": "2026-10-09", "v": 50.0}, {"d": "2026-10-10", "v": 51.0}, {"d": "2026-10-11", "v": 53.0}, {"d": "2026-10-12", "v": 48.0}, {"d": "2026-10-13", "v": 46.0}, {"d": "2026-10-14", "v": 48.0}, {"d": "2026-10-15", "v": 50.0}, {"d": "2026-10-16", "v": 51.0}, {"d": "2026-10-17", "v": 53.0}, {"d": "2026-10-18", "v": 55.0}, {"d": "2026-10-19", "v": 52.0}, {"d": "2026-10-20", "v": 52.0}, {"d": "2026-10-21", "v": 51.0}, {"d": "2026-10-22", "v": 53.0}, {"d": "2026-10-23", "v": 50.0}, {"d": "2026-10-24", "v": 53.0}, {"d": "2026-10-25", "v": 48.0}, {"d": "2026-10-26", "v": 51.0}, {"d": "2026-10-27", "v": 49.0}, {"d": "2026-10-28", "v": 50.0}, {"d": "2026-10-29", "v": 51.0}, {"d": "2026-10-30", "v": 51.0}, {"d": "2026-10-31", "v": 48.0}, {"d": "2026-11-01", "v": 54.0}, {"d": "2026-11-02", "v": 46.0}, {"d": "2026-11-03", "v": 51.0}, {"d": "2026-11-04", "v": 52.0}, {"d": "2026-11-05", "v": 52.0}, {"d": "2026-11-06", "v": 51.0}, {"d": "2026-11-07", "v": 51.0}, {"d": "2026-11-08", "v": 53.0}, {"d": "2026-11-09", "v": 52.0}, {"d": "2026-11-10", "v": 50.0}, {"d": "2026-11-11", "v": 49.0}, {"d": "2026-11-12", "v": 55.0}, {"d": "2026-11-13", "v": 51.0}, {"d": "2026-11-14", "v": 56.0}, {"d": "2026-11-15", "v": 56.0}], "hrv": [{"d": "2026-09-30", "night": 49.0, "week": null}, {"d": "2026-10-01", "night": 44.0, "week": null}, {"d": "2026-10-02", "night": 53.0, "week": null}, {"d": "2026-10-03", "night": 51.0, "week": 49.0}, {"d": "2026-10-04", "night": 45.0, "week": 48.0}, {"d": "2026-10-05", "night": 38.0, "week": 46.0}, {"d": "2026-10-06", "night": 48.0, "week": 47.0}, {"d": "2026-10-07", "night": 50.0, "week": 47.0}, {"d": "2026-10-08", "night": 48.0, "week": 47.0}, {"d": "2026-10-09", "night": 40.0, "week": 46.0}, {"d": "2026-10-10", "night": 43.0, "week": 45.0}, {"d": "2026-10-11", "night": 45.0, "week": 45.0}, {"d": "2026-10-12", "night": 45.0, "week": 46.0}, {"d": "2026-10-13", "night": 49.0, "week": 46.0}, {"d": "2026-10-14", "night": 47.0, "week": 46.0}, {"d": "2026-10-15", "night": 40.0, "week": 44.0}, {"d": "2026-10-16", "night": 42.0, "week": 45.0}, {"d": "2026-10-17", "night": 55.0, "week": 46.0}, {"d": "2026-10-18", "night": 40.0, "week": 45.0}, {"d": "2026-10-19", "night": 42.0, "week": 45.0}, {"d": "2026-10-20", "night": 43.0, "week": 44.0}, {"d": "2026-10-21", "night": 43.0, "week": 43.0}, {"d": "2026-10-22", "night": 37.0, "week": 43.0}, {"d": "2026-10-23", "night": 46.0, "week": 43.0}, {"d": "2026-10-24", "night": 46.0, "week": 42.0}, {"d": "2026-10-25", "night": 45.0, "week": 43.0}, {"d": "2026-10-26", "night": 50.0, "week": 44.0}, {"d": "2026-10-27", "night": 50.0, "week": 45.0}, {"d": "2026-10-28", "night": 45.0, "week": 45.0}, {"d": "2026-10-29", "night": 41.0, "week": 46.0}, {"d": "2026-10-30", "night": 50.0, "week": 47.0}, {"d": "2026-10-31", "night": 48.0, "week": 47.0}, {"d": "2026-11-01", "night": null, "week": 47.0}, {"d": "2026-11-02", "night": 52.0, "week": 47.0}, {"d": "2026-11-03", "night": 45.0, "week": 47.0}, {"d": "2026-11-04", "night": 49.0, "week": 47.0}, {"d": "2026-11-05", "night": 44.0, "week": 48.0}, {"d": "2026-11-06", "night": 41.0, "week": 46.0}, {"d": "2026-11-07", "night": 40.0, "week": 45.0}, {"d": "2026-11-08", "night": 45.0, "week": 45.0}, {"d": "2026-11-09", "night": 38.0, "week": 43.0}, {"d": "2026-11-10", "night": 49.0, "week": 44.0}, {"d": "2026-11-11", "night": 44.0, "week": 43.0}, {"d": "2026-11-12", "night": 37.0, "week": 42.0}, {"d": "2026-11-13", "night": 43.0, "week": 42.0}, {"d": "2026-11-14", "night": 33.0, "week": 41.0}, {"d": "2026-11-15", "night": 33.0, "week": 39.0}], "sleep": [{"d": "2026-09-30", "h": 6.0}, {"d": "2026-10-01", "h": 6.98}, {"d": "2026-10-02", "h": 7.62}, {"d": "2026-10-03", "h": 7.23}, {"d": "2026-10-04", "h": 6.75}, {"d": "2026-10-05", "h": 6.81}, {"d": "2026-10-06", "h": 9.06}, {"d": "2026-10-07", "h": 7.71}, {"d": "2026-10-08", "h": 7.28}, {"d": "2026-10-09", "h": 8.1}, {"d": "2026-10-10", "h": 7.46}, {"d": "2026-10-11", "h": 5.45}, {"d": "2026-10-12", "h": 7.98}, {"d": "2026-10-13", "h": 8.68}, {"d": "2026-10-14", "h": 8.37}, {"d": "2026-10-15", "h": 6.93}, {"d": "2026-10-16", "h": 8.3}, {"d": "2026-10-17", "h": 7.25}, {"d": "2026-10-18", "h": 6.93}, {"d": "2026-10-19", "h": 6.8}, {"d": "2026-10-20", "h": 8.77}, {"d": "2026-10-21", "h": 8.32}, {"d": "2026-10-22", "h": 9.08}, {"d": "2026-10-23", "h": 8.58}, {"d": "2026-10-24", "h": 6.65}, {"d": "2026-10-25", "h": 7.28}, {"d": "2026-10-26", "h": 6.58}, {"d": "2026-10-27", "h": 8.38}, {"d": "2026-10-28", "h": 6.98}, {"d": "2026-10-29", "h": 8.53}, {"d": "2026-10-30", "h": 7.2}, {"d": "2026-10-31", "h": 8.1}, {"d": "2026-11-02", "h": 9.57}, {"d": "2026-11-03", "h": 7.98}, {"d": "2026-11-04", "h": 6.8}, {"d": "2026-11-05", "h": 7.68}, {"d": "2026-11-06", "h": 7.6}, {"d": "2026-11-07", "h": 7.43}, {"d": "2026-11-08", "h": 6.58}, {"d": "2026-11-09", "h": 8.65}, {"d": "2026-11-10", "h": 7.83}, {"d": "2026-11-11", "h": 7.87}, {"d": "2026-11-12", "h": 7.5}, {"d": "2026-11-13", "h": 8.9}, {"d": "2026-11-14", "h": 5.55}, {"d": "2026-11-15", "h": 7.38}], "weight": [{"d": "2026-09-29", "kg": 74.0}, {"d": "2026-10-31", "kg": 76.0}], "today": "2026-11-16", "pulled": "2026-11-16 00:37", "race": {"name": "Mezza maratona", "date": ""}, "goal": 110, "planStart": "2026-11-09", "done": ["1A", "1B"], "paceRef": 328, "vo2": [{"d": "2026-09-30", "v": 52.9}, {"d": "2026-10-03", "v": 53.6}, {"d": "2026-10-08", "v": 52.8}, {"d": "2026-10-10", "v": 52.2}, {"d": "2026-10-17", "v": 53.0}, {"d": "2026-10-21", "v": 52.3}, {"d": "2026-10-24", "v": 53.6}, {"d": "2026-10-26", "v": 53.6}, {"d": "2026-10-31", "v": 51.8}, {"d": "2026-11-02", "v": 52.2}, {"d": "2026-11-11", "v": 51.8}, {"d": "2026-11-14", "v": 51.6}], "plan": [{"w": 1, "phase": "Costruzione", "a": "10 x 2' forte / 2' lento", "akm": 9.77, "akind": "fartlek", "blo": 12, "bhi": 12}, {"w": 2, "phase": "Costruzione", "a": "6 x 3' forte / 2' lento", "akm": 8.24, "akind": "fartlek", "blo": 14, "bhi": 14}, {"w": 3, "phase": "Costruzione", "a": "5 x 1.000 m Z4 / 3' recupero", "akm": 10.1, "akind": "z4", "blo": 15, "bhi": 15}, {"w": 4, "phase": "Sviluppo", "a": "8 x 400 m Z4 / 2' recupero", "akm": 8.58, "akind": "z4", "blo": 12, "bhi": 12}, {"w": 5, "phase": "Sviluppo", "a": "6 x 1.000 m Z4 / 2'30'' recupero", "akm": 11.17, "akind": "z4", "blo": 16, "bhi": 16}, {"w": 6, "phase": "Sviluppo", "a": "5 x 4' forte / 2' lento", "akm": 8.34, "akind": "fartlek", "blo": 17, "bhi": 17}, {"w": 7, "phase": "Specifica", "a": "4 x 1.200 m Z4 / 3' recupero", "akm": 9.47, "akind": "z4", "blo": 18, "bhi": 18}, {"w": 8, "phase": "Specifica", "a": "3 x 2.000 m Z3-Z4 / 3' recupero", "akm": 10.24, "akind": "z3z4", "blo": 19, "bhi": 20}, {"w": 9, "phase": "Scarico", "a": "4 x 800 m Z4 / 2'30'' recupero", "akm": 7.66, "akind": "z4", "blo": 14, "bhi": 14}, {"w": 10, "phase": "Gara", "a": "25' facili + 4 allunghi da 20''", "akm": 4.0, "akind": "attivazione", "blo": 21.1, "bhi": 21.1}]};
 const MS=864e5;
 const NS="http://www.w3.org/2000/svg";
 const $=id=>document.getElementById(id);
@@ -91,6 +96,21 @@ const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
 const TODAY=tms(D.today);
 const HALF=21.0975,GOAL=D.goal,GOAL_SEC=GOAL*60/HALF;
 const goalPaceStr=Math.floor(GOAL_SEC/60)+":"+pad2(Math.floor(GOAL_SEC%60));
+const fmtPaceS=s=>{s=Math.round(s);return Math.floor(s/60)+":"+pad2(s%60)};
+// passo di riferimento (secondi al km) da cui si calcolano i passi della tabella
+const PACE_REF=D.paceRef;
+// differenze in secondi al km rispetto al passo di riferimento (valori negativi = piu veloci)
+const PACES={rec:[75,105],easy:[45,75],thr:[-15,-5],repL:[-30,-20],repS:[-45,-35]};
+const rng=k=>fmtPaceS(PACE_REF+PACES[k][0])+"-"+fmtPaceS(PACE_REF+PACES[k][1]);
+const WX=[["thunder","temporale"],["storm","temporale"],["snow","neve"],["sleet","nevischio"],["rain","pioggia"],["shower","rovesci"],["drizzle","pioggerella"],["fog","nebbia"],["mist","foschia"],["haze","foschia"],["wind","ventoso"],["partly","parzialmente nuvoloso"],["mostly cloudy","molto nuvoloso"],["overcast","coperto"],["cloud","nuvoloso"],["clear","sereno"],["sun","soleggiato"],["fair","sereno"]];
+function itWx(d){const l=String(d||"").toLowerCase();for(const k of WX)if(l.indexOf(k[0])>=0)return k[1];return d||""}
+function wxTxt(r){
+  const p=[];
+  if(r.temp!=null)p.push(r.temp+"&deg;C");
+  else if(r.twatch!=null)p.push(r.twatch+"&deg;C (orologio)");
+  if(r.wx)p.push(esc(itWx(r.wx)));
+  return p.join(", ");
+}
 const tip=$("tip");
 function mk(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
 function weekStart(t){const d=new Date(t);d.setHours(12,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime()}
@@ -149,9 +169,9 @@ function draw(box,o){
   const hl=mk("circle",{r:7,fill:"none",stroke:"#111","stroke-width":2.5,display:"none"},svg);
   const ov=mk("rect",{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:"transparent"},svg);
   ov.addEventListener("mousemove",ev=>{
-    const mx=ev.clientX-svg.getBoundingClientRect().left;
+    const rc=svg.getBoundingClientRect(),mx=ev.clientX-rc.left,my=ev.clientY-rc.top;
     let best=null,bd=1e9;
-    anchors.forEach(a=>{const dd=Math.abs(a.x-mx);if(dd<bd){bd=dd;best=a}});
+    anchors.forEach(a=>{const dd=o.bars?Math.abs(a.x-mx):Math.hypot(a.x-mx,a.y-my);if(dd<bd){bd=dd;best=a}});
     if(!best)return;
     hl.setAttribute("cx",best.x);hl.setAttribute("cy",best.y);hl.setAttribute("display","");
     tip.innerHTML=best.p.tip;tip.style.display="block";
@@ -178,18 +198,13 @@ function render(days){
     ["FC a riposo",last?Math.round(last.v):"-",last?"ultima: "+fmtD(tms(last.d)):"nessun dato"],
     ["Passo medio",totKm>0?fmtPace(totMin/totKm):"-","min/km"]
   ];
-  // previsione mezza maratona (formula di Riegel) dalle corse piu lunghe
-  const lg=D.runs.filter(r=>r.pace&&r.km>=8),pool=lg.length?lg:D.runs.filter(r=>r.pace&&r.km>=5);
-  const pr=pool.map(r=>r.min*Math.pow(21.0975/r.km,1.06)).sort((a,b)=>a-b);
-  if(pr.length){
-    const md=pr[Math.floor(pr.length/2)],diff=md*60/HALF-GOAL_SEC;
-    kp.push(["Previsione mezza",fmtDur(md),"stima "+fmtPace(md/HALF)+" /km (da "+pr.length+" corse)<br>"+(diff<=0?"in linea con l'obiettivo":"servono circa "+Math.ceil(diff)+" s/km in meno")]);
-  }else kp.push(["Previsione mezza","-","servono corse da almeno 5 km"]);
   kp.push(["Obiettivo","&lt; "+fmtDur(GOAL),"serve un passo medio di "+goalPaceStr+" /km"]);
+  const v2=D.vo2.length?D.vo2[D.vo2.length-1]:null;
+  kp.push(["VO2 max",v2?v2.v.toFixed(1):"-",v2?"ml/kg/min, al "+fmtD(tms(v2.d)):"nessun dato"]);
   $("kpis").innerHTML=kp.map(k=>'<div class="kpi"><span>'+k[0]+'</span><b>'+k[1]+'</b><small>'+k[2]+'</small></div>').join("");
 
   // 1) FC nelle corse
-  const tipRun=(r,label,val)=>"<b>"+fmtD(tms(r.d))+"</b> "+esc(r.name)+"<br>"+r.km+" km &middot; "+label+" "+Math.round(val)+" bpm";
+  const tipRun=(r,label,val)=>"<b>"+fmtD(tms(r.d))+"</b> "+esc(r.name)+"<br>"+r.km+" km &middot; "+label+" "+Math.round(val)+" bpm"+(wxTxt(r)?"<br>"+wxTxt(r):"");
   const s1=[
     {name:"FC media",color:"#ff2e2e",pts:runs.filter(r=>r.hr).map(r=>({t:tms(r.d),y:r.hr,tip:tipRun(r,"FC media",r.hr)}))},
     {name:"FC massima",color:"#111111",pts:runs.filter(r=>r.max).map(r=>({t:tms(r.d),y:r.max,tip:tipRun(r,"FC max",r.max)}))}
@@ -215,7 +230,7 @@ function render(days){
   draw($("c3"),{series:s3,x0:weekStart(x0),x1:weekStart(x1)+7*MS,bars:true,yFmt:v=>Math.round(v)});
 
   // 4) Passo
-  const s4=[{name:"Passo",color:"#111111",pts:runs.filter(r=>r.pace&&r.pace>2&&r.pace<15).map(r=>({t:tms(r.d),y:r.pace,tip:"<b>"+fmtD(tms(r.d))+"</b> "+esc(r.name)+"<br>"+r.km+" km &middot; "+fmtPace(r.pace)+" /km"}))}];
+  const s4=[{name:"Passo",color:"#111111",pts:runs.filter(r=>r.pace&&r.pace>2&&r.pace<15).map(r=>({t:tms(r.d),y:r.pace,tip:"<b>"+fmtD(tms(r.d))+"</b> "+esc(r.name)+"<br>"+r.km+" km &middot; "+fmtPace(r.pace)+" /km"+(wxTxt(r)?"<br>"+wxTxt(r):"")}))}];
   legend("l4",s4);
   draw($("c4"),{series:s4,x0:x0,x1:x1,yFmt:fmtPace,hline:{y:GOAL_SEC/60,label:"passo obiettivo "+goalPaceStr}});
 
@@ -243,23 +258,38 @@ function render(days){
   $("k7").style.display=D.weight.length?"":"none";
   draw($("c7"),{series:s7,x0:x0,x1:x1,yFmt:v=>v.toFixed(1)});
 
+  // 8) VO2 max
+  const vr=D.vo2.filter(r=>inR(r.d));
+  const s8=[{name:"VO2 max (ml/kg/min)",color:"#ff2e2e",pts:vr.map(r=>({t:tms(r.d),y:r.v,tip:"<b>"+fmtD(tms(r.d))+"</b><br>VO2 max "+r.v.toFixed(1)}))}];
+  legend("l8",s8);
+  if(D.vo2.length)draw($("c8"),{series:s8,x0:x0,x1:x1,yFmt:v=>v.toFixed(1)});
+  else $("c8").innerHTML='<div class="empty">Garmin non ha restituito il VO2 max con questa chiave: guarda data/campi.txt</div>';
+
   // tabella ultime corse
   const rows=runs.slice().reverse().slice(0,12);
-  $("tbl").innerHTML=rows.length?'<table><tr><th>Data</th><th>Corsa</th><th>Km</th><th>Tempo</th><th>Passo</th><th>FC media</th><th>FC max</th></tr>'+
-    rows.map(r=>"<tr><td>"+fmtD(tms(r.d))+"</td><td>"+esc(r.name)+"</td><td>"+r.km.toFixed(2)+"</td><td>"+fmtDur(r.min)+"</td><td>"+fmtPace(r.pace)+"</td><td>"+(r.hr?Math.round(r.hr):"-")+"</td><td>"+(r.max?Math.round(r.max):"-")+"</td></tr>").join("")+"</table>":'<div class="empty">Nessuna corsa in questo periodo</div>';
+  $("tbl").innerHTML=rows.length?'<table><tr><th>Data</th><th>Corsa</th><th>Km</th><th>Tempo</th><th>Passo</th><th>FC media</th><th>FC max</th><th>Meteo</th></tr>'+
+    rows.map(r=>"<tr><td>"+fmtD(tms(r.d))+"</td><td>"+esc(r.name)+"</td><td>"+r.km.toFixed(2)+"</td><td>"+fmtDur(r.min)+"</td><td>"+fmtPace(r.pace)+"</td><td>"+(r.hr?Math.round(r.hr):"-")+"</td><td>"+(r.max?Math.round(r.max):"-")+"</td><td>"+(wxTxt(r)||"-")+"</td></tr>").join("")+"</table>":'<div class="empty">Nessuna corsa in questo periodo</div>';
 }
 
 // ---------- piano di allenamento ----------
 const PLAN=D.plan,NW=PLAN.length;
 const KIND={
-  fartlek:{lab:"Alta",cls:"p-hi",rpe:"7 nei tratti forti, 3 nei tratti lenti",pace:"tratto forte circa 5:15 /km, tratto lento circa 7:00 /km",zone:"sforzo sostenuto nei tratti forti",z:null,note:"Guida lo sforzo, non il battito: nelle ripetute la FC sale con ritardo."},
-  z4:{lab:"Alta",cls:"p-hi",rpe:"7-8 nelle ripetute, 2-3 nel resto",pace:"ripetute 5:00-5:20 /km, recupero circa 7:00 /km o piu lento",zone:"Z4",z:[0.80,0.90],note:"Ripetute controllate: non sprintare. L'ultima deve essere simile alla prima."},
-  z3z4:{lab:"Medio-alta",cls:"p-mid",rpe:"6-7",pace:"circa 5:15 /km nei tratti lunghi, recupero lento",zone:"Z3-Z4",z:[0.70,0.90],note:"Sono tratti lunghi: parti controllato, meglio finire forte che partire forte."},
-  attivazione:{lab:"Leggera",cls:"p-lo",rpe:"3-4 (i 4 allunghi da 20 secondi un po' piu vivaci)",pace:"facile 6:00-6:40 /km",zone:"Z2",z:[0.60,0.70],note:"E' solo una attivazione per la gara: non deve stancarti."},
-  lungo:{lab:"Facile",cls:"p-lo",rpe:"3-4",pace:"6:00-6:40 /km",zone:"Z2",z:[0.60,0.70],note:"Test della conversazione: devi riuscire a parlare per frasi. Se il battito sale, rallenta."},
-  gara:{lab:"Gara",cls:"p-race",rpe:"6-7, sostenuto ma controllato",pace:"obiettivo: "+goalPaceStr+" /km di media",zone:"ritmo gara",z:null,note:"Non partire troppo forte nei primi chilometri."}
+  fartlek:{lab:"Alta",cls:"p-hi",rpe:"7 nei tratti forti, 3 nei tratti lenti",pace:p=>"tratti forti "+rng("repL")+" /km, tratti lenti "+rng("rec")+" /km",zone:"sforzo sostenuto nei tratti forti",z:null,note:"Guida lo sforzo, non il battito: nelle ripetute la FC sale con ritardo."},
+  z4:{lab:"Alta",cls:"p-hi",rpe:"7-8 nelle ripetute, 2-3 nel resto",pace:p=>((p.w===4||p.w===9)?"ripetute brevi "+rng("repS"):"ripetute "+rng("repL"))+" /km, recupero "+rng("rec")+" /km",zone:"Z4",z:[0.80,0.90],note:"Ripetute controllate: non sprintare. L'ultima deve essere simile alla prima."},
+  z3z4:{lab:"Medio-alta",cls:"p-mid",rpe:"6-7",pace:p=>"tratti lunghi "+rng("thr")+" /km, recupero "+rng("rec")+" /km",zone:"Z3-Z4",z:[0.70,0.90],note:"Sono tratti lunghi: parti controllato, meglio finire forte che partire forte."},
+  attivazione:{lab:"Leggera",cls:"p-lo",rpe:"3-4 (i 4 allunghi da 20 secondi un po' piu vivaci)",pace:p=>"facile "+rng("easy")+" /km",zone:"Z2",z:[0.60,0.70],note:"E' solo una attivazione per la gara: non deve stancarti."},
+  lungo:{lab:"Facile",cls:"p-lo",rpe:"3-4",pace:p=>rng("easy")+" /km",zone:"Z2",z:[0.60,0.70],note:"Test della conversazione: devi riuscire a parlare per frasi. Se il battito sale, rallenta."},
+  gara:{lab:"Gara",cls:"p-race",rpe:"6-7, sostenuto ma controllato",pace:p=>"obiettivo "+goalPaceStr+" /km di media",zone:"ritmo gara",z:null,note:"Non partire troppo forte nei primi chilometri."}
 };
-function weekMon(w){return weekStart(weekStart(tms(D.race.date))-(NW-w)*7*MS)}
+
+// segni "fatto" premuti nel browser: restano su questo dispositivo, non toccano i file del computer
+const DONE_KEY="garmin_fatti_v1";
+let marks={},storeOk=true;
+try{marks=JSON.parse(localStorage.getItem(DONE_KEY)||"{}")}catch(e){storeOk=false;marks={}}
+function saveMarks(){try{localStorage.setItem(DONE_KEY,JSON.stringify(marks))}catch(e){storeOk=false}}
+const baked=new Set(D.done||[]);
+
+function weekMon(w){return weekStart(tms(D.planStart)+(w-1)*7*MS)}
 function matchPlan(){
   return PLAN.map(p=>{
     const s=weekMon(p.w);
@@ -270,37 +300,49 @@ function matchPlan(){
     return {p:p,s:s,a:a,b:b};
   });
 }
+function doneInfo(wk,k){
+  const r=k==="A"?wk.a:wk.b,id=wk.p.w+k;
+  if(r)return {run:r,src:"garmin"};
+  if(baked.has(id))return {src:"gia"};
+  if(marks[id])return {src:"mark"};
+  return null;
+}
 const fmtRun=r=>r.km.toFixed(1)+" km, "+fmtPace(r.pace)+" /km"+(r.hr?", FC "+Math.round(r.hr):"");
 function renderPlan(){
   const nx=$("knext"),pl=$("kplan");
-  const has=!!(D.race&&D.race.date);
+  const has=!!D.planStart;
   const bTxt=p=>(p.w===NW?"gara ":"")+(p.blo===p.bhi?p.blo+" km":p.blo+"-"+p.bhi+" km");
   if(!has){
-    nx.innerHTML='<h2>Prossimo allenamento</h2><div class="empty">Per sapere qual e il prossimo allenamento serve la data della gara (riga RACE_DATE in build.py).</div>';
+    nx.innerHTML='<h2>Prossimo allenamento</h2><div class="empty">Per sapere qual e il prossimo allenamento serve la data di inizio del piano (riga PLAN_START in build.py).</div>';
     pl.innerHTML='<h2>Piano di allenamento</h2><div class="tw"><table><tr><th>Sett.</th><th>Fase</th><th>Allenamento A (qualita)</th><th>Lungo B</th></tr>'+
       PLAN.map(p=>"<tr><td>"+p.w+"</td><td>"+p.phase+"</td><td>"+esc(p.a)+"<br><small>circa "+p.akm.toFixed(1)+" km</small></td><td>"+bTxt(p)+"</td></tr>").join("")+"</table></div>";
     return;
   }
   const m=matchPlan();
   const curW=Math.round((weekStart(TODAY)-weekMon(1))/(7*MS))+1;
-  const st=(r,wk)=>r?'<span class="ok">fatto</span><br><small>'+fmtRun(r)+'</small>':(wk.s+6*MS<TODAY?'<span class="no">non fatto</span>':'<span class="todo">da fare</span>');
+  const st=(wk,k)=>{
+    const i=doneInfo(wk,k);
+    if(i&&i.run)return '<span class="ok">fatto</span><br><small>'+fmtRun(i.run)+'</small>';
+    if(i&&i.src==="gia")return '<span class="ok">fatto</span><br><small>gia svolto</small>';
+    if(i&&i.src==="mark")return '<span class="ok">fatto</span><br><small>segnato da te - <a href="#" data-undo="'+wk.p.w+k+'">annulla</a></small>';
+    return wk.s+6*MS<TODAY?'<span class="no">non fatto</span>':'<span class="todo">da fare</span>';
+  };
 
   // tabella del piano
-  pl.innerHTML='<h2>Piano di allenamento</h2><p class="hint">Abbinamento automatico: in ogni settimana la corsa piu lunga conta come lungo, l\'altra come allenamento di qualita.</p><div class="tw"><table><tr><th>Sett.</th><th>Date</th><th>Fase</th><th>Allenamento A (qualita)</th><th>Fatto?</th><th>Lungo B</th><th>Fatto?</th></tr>'+
-    m.map(w=>{const p=w.p;return '<tr class="'+(p.w===curW?"now":"")+'"><td>'+p.w+'</td><td>'+fmtD(w.s)+' - '+fmtD(w.s+6*MS)+'</td><td>'+p.phase+'</td><td>'+esc(p.a)+'<br><small>circa '+p.akm.toFixed(1)+' km</small></td><td>'+st(w.a,w)+'</td><td>'+bTxt(p)+'</td><td>'+st(w.b,w)+'</td></tr>'}).join("")+'</table></div>';
+  pl.innerHTML='<h2>Piano di allenamento</h2><p class="hint">Dopo la sincronizzazione con Garmin le corse vengono abbinate da sole: in ogni settimana la piu lunga conta come lungo, l\'altra come qualita. Un segno "fatto" premuto a mano resta solo su questo dispositivo.</p><div class="tw"><table><tr><th>Sett.</th><th>Date</th><th>Fase</th><th>Allenamento A (qualita)</th><th>Fatto?</th><th>Lungo B</th><th>Fatto?</th></tr>'+
+    m.map(w=>{const p=w.p;return '<tr class="'+(p.w===curW?"now":"")+'"><td>'+p.w+'</td><td>'+fmtD(w.s)+' - '+fmtD(w.s+6*MS)+'</td><td>'+p.phase+'</td><td>'+esc(p.a)+'<br><small>circa '+p.akm.toFixed(1)+' km</small></td><td>'+st(w,"A")+'</td><td>'+bTxt(p)+'</td><td>'+st(w,"B")+'</td></tr>'}).join("")+'</table></div>';
+  pl.querySelectorAll("[data-undo]").forEach(a=>{a.onclick=ev=>{ev.preventDefault();delete marks[a.dataset.undo];saveMarks();renderPlan()}});
 
-  // prossimo allenamento
-  let n;
-  if(curW>NW)n={end:1};
-  else if(curW<1)n={w:1,k:"A",before:1};
-  else{
-    const w=m[curW-1];
-    if(!w.a)n={w:curW,k:"A"};
-    else if(!w.b)n={w:curW,k:"B"};
-    else if(curW<NW)n={w:curW+1,k:"A"};
-    else n={end:1};
+  // prossimo allenamento: il primo non ancora fatto, dalla settimana in corso in poi
+  let n=null;
+  if(curW<=NW){
+    for(let i=Math.max(curW,1)-1;i<NW&&!n;i++){
+      if(!doneInfo(m[i],"A"))n={w:i+1,k:"A"};
+      else if(!doneInfo(m[i],"B"))n={w:i+1,k:"B"};
+    }
+    if(n&&curW<1)n.before=1;
   }
-  if(n.end){nx.innerHTML='<h2>Prossimo allenamento</h2><div class="empty">Il piano e concluso: non ci sono altri allenamenti in programma.</div>';return}
+  if(!n){nx.innerHTML='<h2>Prossimo allenamento</h2><div class="empty">Il piano e concluso: non ci sono altri allenamenti in programma.</div>';return}
   const p=PLAN[n.w-1],isA=n.k==="A";
   const kk=isA?p.akind:(p.w===NW?"gara":"lungo"),K=KIND[kk];
   const title=isA?p.a:(p.w===NW?"Mezza maratona (gara)":"Lungo aerobico");
@@ -311,7 +353,7 @@ function renderPlan(){
   const hr=K.z?(mx?Math.round(K.z[0]*mx)+"-"+Math.round(K.z[1]*mx)+" bpm <small>(stima provvisoria dal tuo massimo registrato: "+Math.round(mx)+" bpm)</small>":"serve almeno una corsa con la FC registrata"):"il piano non fissa un valore: guida lo sforzo";
   const rows=[
     ["Distanza",dist],
-    ["Passo",K.pace+(isA&&p.w<NW?"<br><small>riscaldamento 12' e defaticamento 10' a circa 6:30 /km</small>":"")],
+    ["Passo",K.pace(p)+(isA&&p.w<NW?"<br><small>riscaldamento 12' e defaticamento 10' a passo facile ("+rng("easy")+" /km)</small>":"")],
     ["Zona",K.zone],
     ["Battiti (bpm)",hr],
     ["Sforzo percepito (1-10)",K.rpe]
@@ -328,7 +370,22 @@ function renderPlan(){
   if(kk==="lungo"&&p.blo>lg+3)rem.push("Il lungo previsto ("+p.blo+" km) e molto piu lungo della tua corsa piu lunga recente ("+lg.toFixed(1)+" km): come dice il piano, meglio ripetere o ridurre le settimane iniziali che saltare in avanti.");
   rem.push("Dopo la corsa scrivimi in chat come ti sei sentito: adatto il consiglio.");
   nx.innerHTML='<h2>Prossimo allenamento</h2><div class="nx"><span class="pill '+K.cls+'">Intensita consigliata: '+K.lab+'</span><b>'+esc(title)+'</b></div><div class="when">'+when+'</div>'+
-    '<table class="kv">'+rows.map(r=>"<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>").join("")+'</table><ul class="rem">'+rem.map(x=>"<li>"+x+"</li>").join("")+'</ul>';
+    '<table class="kv">'+rows.map(r=>"<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>").join("")+'</table><ul class="rem">'+rem.map(x=>"<li>"+x+"</li>").join("")+'</ul>'+
+    '<button class="btn" id="markdone">Fatto: segna come svolto</button><div class="hint">Dopo la sincronizzazione Garmin la tabella mostrera i dati veri della corsa.'+(storeOk?'':' Attenzione: questo browser non permette di salvare il segno, resta solo finche la pagina e aperta.')+'</div>';
+  $("markdone").onclick=()=>{marks[n.w+n.k]=D.today;saveMarks();renderPlan()};
+}
+
+function renderPaces(){
+  const rows=[
+    ["Recupero","rec","corsetta molto facile, respiro tranquillo (FC in Z1-Z2)"],
+    ["Fondo lento / lungo","easy","riesci a parlare per frasi complete (Z2)"],
+    ["Ritmo sostenuto (Z3-Z4)","thr","impegnativo ma controllato, sforzo 6-7 su 10"],
+    ["Ripetute lunghe (1.000-2.000 m, tratti da 3-4')","repL","veloce ma regolare, sforzo 7-8 su 10"],
+    ["Ripetute brevi (400-800 m)","repS","veloce ma non uno sprint, sforzo 7-8 su 10"]
+  ];
+  $("kpaces").innerHTML='<h2>Passi di riferimento</h2><p class="hint">Passi indicativi per le tue sedute, in minuti al km. Sono stime di massima, non valori misurati: se ti sembrano troppo facili o troppo difficili dimmelo e li correggo.</p><div class="tw"><table><tr><th>Tipo di corsa</th><th>Passo (min/km)</th><th>Come si riconosce</th></tr>'+
+    rows.map(r=>"<tr><td>"+r[0]+"</td><td><b>"+rng(r[1])+"</b></td><td>"+r[2]+"</td></tr>").join("")+
+    '<tr><td>Passo obiettivo gara</td><td><b>'+goalPaceStr+'</b></td><td>serve per stare sotto 1:50</td></tr></table></div>';
 }
 
 // intestazione e conto alla rovescia
@@ -345,10 +402,10 @@ function bar(){
   $("bar").innerHTML=ranges.map(r=>'<button data-d="'+r+'" class="'+(r===cur?"on":"")+'">'+r+' giorni</button>').join("");
   $("bar").querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=+b.dataset.d;bar();render(cur)});
 }
-bar();render(cur);renderPlan();
+bar();render(cur);renderPlan();renderPaces();
 let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>render(cur),200)});
 </script>
 </body>
 </html>
 
-<!-- last-sync: 2026-11-16 00:01:44 -->
+<!-- last-sync: 2026-11-16 00:37:36 -->

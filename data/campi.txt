@@ -3,3 +3,7 @@ giornaliero: bodyBattery, calendarDate, calories, heartRate, hydration, includes
 sonno: autoSleepEndTimestampGMT, autoSleepStartTimestampGMT, awakeSleepSeconds, calendarDate, deepSleepSeconds, deviceRemCapable, id, lightSleepSeconds, napTimeSeconds, nextSleepNeed, remSleepSeconds, retro, sleepEndTimestampGMT, sleepEndTimestampLocal, sleepQualityTypePK, sleepResultTypePK, sleepStartTimestampGMT, sleepStartTimestampLocal, sleepTimeSeconds, sleepWindowConfirmationType, sleepWindowConfirmed, unmeasurableSleepSeconds, userProfilePK
 hrv: baseline, calendarDate, createTimeStamp, feedbackPhrase, lastNight5MinHigh, lastNightAvg, status, weeklyAvg
 peso: allWeightMetrics, latestWeight, maxWeight, minWeight, numOfWeightEntries, summaryDate
+vo2 nel servizio dedicato: cycling, generic
+campi vo2 nelle attivita: (nessuno)
+campi vo2 nel giornaliero: (nessuno)
+meteo: (nessun dato)
